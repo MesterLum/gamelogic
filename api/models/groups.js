@@ -1,8 +1,8 @@
 'use strict'
 
 const mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+    Schema = mongoose.Schema;
+    
 
 
 const Group = new Schema({
@@ -14,9 +14,12 @@ const AssignGroup = new Schema({
     id_student : {type : String,
         required : true,
         trim : true,
-        index : true
-        },
-    id_group : {type: String,
+        unique : true,
+        index : true,
+        ref : 'Students'
+    },
+    id_group : {type: Schema.Types.ObjectId,
+                ref : 'Group',
             required : true}
 });
 

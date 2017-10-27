@@ -3,6 +3,8 @@
 const app = require('./app'),
     config = require('./config'),
     mongoose = require('mongoose');
+
+
 mongoose.Promise = global.Promise;
 mongoose.connect(config.URL_CONNECTION, {useMongoClient : true}, (err) =>{
     if (err) throw err;

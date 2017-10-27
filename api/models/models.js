@@ -13,5 +13,6 @@ module.exports = ()=>{
     //Groups
     require('./groups').AssignGroup;
     require('./groups').Group;
+    require('./teachers').Teacher;
     //
 }
