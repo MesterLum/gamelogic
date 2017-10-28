@@ -15,7 +15,8 @@ const Students = new Schema({
     name : {type : String,
             trim : true,
             required : true
-            }
+            },
+    level : {type : Number}
 
 });
 

@@ -17,13 +17,12 @@ function registerTeacher(req,res){
 
     });
 
-
 }
 
 function assignGroupTeacher(req,res){
     
     teacherModel.findByIdAndUpdate(req.body.id_teacher, {$addToSet : {"groups" : req.body.id_group}}, (err, data) =>{
-        console.log(data);
+        
         if (err) throw err;
         
         else res.status(200).send({data : data});

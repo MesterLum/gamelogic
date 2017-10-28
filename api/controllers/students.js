@@ -1,7 +1,8 @@
 'use strict'
 
 const mongoose = require('mongoose'),
-     modelStudents = mongoose.model('Students');
+     modelStudents = mongoose.model('Students'),
+     services = require('../../services');
 
 /*
 
@@ -23,17 +24,18 @@ function registerStudent(req,res){
     })
     
     
-
 }
 
 function login(req, res){
-
+    console.log(req.body.id_student);
     modelStudents.find({id_student : req.body.id_student},{__v : false}, (err, data) =>{
         if (err) res.status(500).send({message : 'Hubo un error'});
-        if (data.length > 0)
-            res.status(200).send({data : data});
+        if (data.length > 0){
+            
+            res.status(200).send({data : services.encodeToken(data[0])});
+        }
         else
-            res.status(200).send({message : 'Matricula incorrecta'});
+            res.status(202).send({message : 'Matricula incorrecta'});
     });
 }
 

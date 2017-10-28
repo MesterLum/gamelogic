@@ -3,6 +3,7 @@
 const lib = function(){
     var element = null,
     routs = [],
+    target = null,
     controller;
 
     const SPA = {
@@ -14,11 +15,12 @@ const lib = function(){
         getElement : function(){
             return element;
         },
-        setRout : function(rout, template,controller, action){
+        setRout : function(rout, template, target, controller, action){
             routs[rout] = {
                 template : template,
                 action : action,
-                controller : controller
+                controller : controller,
+                target : target
             }
             
             return this;
@@ -35,11 +37,20 @@ const lib = function(){
            const hash = window.location.hash.substring(1) || '/';
            if (routs[hash] && routs[hash].template){
                fetch(routs[hash].template)
-               .then(data =>{
+                .then(data =>{
                    return data.text();
                })
                .then(data =>{
-                    element.innerHTML = data;
+                    if (routs[hash].target){
+                        let target = document.getElementById(routs[hash].target);
+                        if (target != null)
+                            target.innerHTML = data;
+                        else
+                            alert('No se encontro la etiqueta que especifica');
+                    }
+                        
+                    else
+                        document.getElementById('root-target').innerHTML = data;
                     if (typeof routs[hash].action == 'function'){
                         routs[hash].action();
                     }
