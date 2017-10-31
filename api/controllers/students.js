@@ -14,7 +14,9 @@ function registerStudent(req,res){
     
     let instanceStudents = new modelStudents({
         id_student : req.body.id_student,
-        name : req.body.name
+        name : req.body.name,
+        nip : req.body.nip,
+        group : req.body.group
         
     });
     
@@ -27,7 +29,7 @@ function registerStudent(req,res){
 }
 
 function login(req, res){
-    console.log(req.body.id_student);
+    
     modelStudents.find({id_student : req.body.id_student},{__v : false}, (err, data) =>{
         if (err) res.status(500).send({message : 'Hubo un error'});
         if (data.length > 0){
@@ -39,10 +41,43 @@ function login(req, res){
     });
 }
 
+//TMP solo envia los datos fijos para un usuario, tiene que recivir el id del estudiante
+
+
+function getLevels(req,res){
+    let modelProblems = mongoose.model('Problems');
+    modelProblems.find({group : '59edab3d60a12ebd8d5d6ca3'},{_id : false,__v : false, group : false, }, (err, results)=>{
+
+        if (err) res.status(500).send({message : 'Hubo un error'});
+        else res.status(200).send({data : results});
+
+    });
+}
+
+//TMP tiene que recibir el ID del estudiante
+
+function getLevel(req,res){
+
+   modelStudents.findOne({id_student : 1040}, (err, result) =>{
+        if (err) res.status(500).send({message : 'hubo un error'});
+        else{
+            let modelProblems = mongoose.model('Problems');
+            modelProblems.find({group : result.group, level : result.level}, (err, result)=>{
+                if (err) res.status(500).send({message : 'hubo un error'});
+                else res.status(200).send({data : result});
+            });
+        }
+   });
+
+}
+
+
 
 module.exports = {
     registerStudent,
-    login
+    login,
+    getLevels,
+    getLevel
 }
 
 

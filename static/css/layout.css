@@ -6,3 +6,32 @@ body{
 *{
     color: white;
 }
+#root-target{
+    text-align: center;
+}
+
+.chat{
+    background-color: #292b2c;
+    border-radius: 5px;
+    color: white;
+    border-top: 2px white solid;
+    text-align: right;
+    max-height: 500px;
+    overflow: scroll;
+    min-height: 300px;
+    
+}
+
+.chat-tittle{
+    color: white;
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color: #252830;
+    text-align: center;
+    border-top: 2px white solid;
+    z-index: 100;
+}
+.body-chat{
+    margin-top: 5px;
+}
+

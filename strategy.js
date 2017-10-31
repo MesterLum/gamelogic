@@ -1,38 +1,39 @@
 'use strict'
 
-const LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy,
+	mongoose = require('mongoose'),
+	studentModel = mongoose.model('Students');
+
 
 
 module.exports = passport =>{
 
-	//Se serializa solo el id del usuario en la session
+
 	passport.serializeUser(function(user, done) {
-        console.log('perro');
-  		done(null, user.id);
-	});
-
-	//Se deszewrializa con el id
-	passport.deserializeUser(function(id, done) {
-        console.log(
-            'perrpo'
-        )
-        done(1);
+		done(null, user._id);
+	  });
+	  
+	  passport.deserializeUser(function(id, done) {
+		studentModel.findById(id, function(err, user) {
+		  done(err, user);
+		});
+	  });
 
 
+	passport.use(new LocalStrategy({
+		usernameField: 'id_student',
+		passwordField: 'nip'
+	},(username, password, done) =>{
+
+		studentModel.find({id_student : username}, (err, student) =>{
+			if (err) return done(err);
 		
-	});
+			return done(null, student[0]);
+		});
 
 
-	passport.use(new LocalStrategy(
-  	function(matricula, done) {
-        console.log('perro');
-        done(1);
+	}));
 
-
-
-		
-  }
-));
 
 
 }
