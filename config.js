@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = {
-    PORT : 8005,
+    PORT : 8009,
     URL_CONNECTION : 'mongodb://localhost:27017/gamelogic',
     SECRET : 'ContraseniasuperestupidaxDdlkajsdlkjalk'
 }

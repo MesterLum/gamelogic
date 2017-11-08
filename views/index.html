@@ -10,32 +10,21 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <link href="css/layout.css" rel="stylesheet"/>
+    <link href="/css/layout.css" rel="stylesheet"/>
+    <link href="/css/elementsLevel.css" rel="stylesheet"/>
+
     
     <!--    END SECTION          -->
 </head>
 <body>
 
-    <div class="container">
-        <form id="login" method="POST" action="/login">
-            <div class="form-group">
-                <label for="id_student">Matricula</label>
-                <input type="text" class="form-control" id="id_student" placeholder="Matricula" name="id_student"></input>
-            </div>
-            <div class="form-group">
-                <label for="nip">NIP</label>
-                <input type="password" class="form-control" id="nip" placeholder="Nip" name="nip"></input>
-            </div>
-              <div class="form-group">
-                <label class="mr-sm-2" for="type_user">Tipo</label>
-                <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="type_user" name="type_user">
-                  <option value="1" style="color:black;">Estudiante</option>
-                  <option value="2" style="color:black;">Profesor</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-primary">Login</button>
+    <div id="root-target" class="container-fluid">Contenido</div>
+
+    <script src="/js/elementsOperations.js"></script>
+    <script src="/js/middleware.js"></script>
+    <script src="/js/spa.js"></script>
+    <script src="/js/leveltable.js"></script>
+    <script src="/js/routes.js"></script>
     
-        </form>
-    </div>
 </body>
 </html>

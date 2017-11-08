@@ -1,7 +1,7 @@
 (function(window, document){
 
 const lib = function(){
-    var element = null,
+    var element = document.getElementById('root-target'),
     routs = [],
     target = null,
     controller;
@@ -15,15 +15,20 @@ const lib = function(){
         getElement : function(){
             return element;
         },
-        setRout : function(rout, template, target, controller, action){
-            routs[rout] = {
-                template : template,
-                action : action,
-                controller : controller,
-                target : target
+        setRout : function(params){
+            routs[params.rout] = {
+                template : params.template,
+                action : params.action,
+                controller : params.controller,
+                target : params.target,
+                preload : params.preload,
+                protected : params.protected
             }
             
             return this;
+        },
+        getRouts : function(){
+            return routs;
         },
         getController : function(){
             return controller;
@@ -33,6 +38,36 @@ const lib = function(){
                 e.preventDefault();
             });
         },
+        ensureAuth : function(){
+            
+            var headers = new Headers();
+            headers.append('Authorization', `Bearer ${localStorage.student}`);
+            
+            fetch('/profile/student/isLogin', {method : 'POST', headers : headers})
+            .then(response =>{
+
+                if (response.status == 200){
+                    response.json().then(response =>{
+                        //Hubo login
+                    })
+                }
+                if (response.status == 500){
+                    response.json().then(response =>{
+                        
+                        window.location = '/';
+                    });
+                }
+                if (response.status == 403){
+                    
+                    window.location = '/';
+                }
+
+            })
+            .catch(response =>{
+                window.location = '/';
+            })
+
+        },
         managerRout : function(){
            const hash = window.location.hash.substring(1) || '/';
            if (routs[hash] && routs[hash].template){
@@ -41,6 +76,10 @@ const lib = function(){
                    return data.text();
                })
                .then(data =>{
+                   if (routs[hash].protected)
+                        _$.ensureAuth();
+                    if (typeof routs[hash].preload === 'function')
+                         routs[hash].preload();
                     if (routs[hash].target){
                         let target = document.getElementById(routs[hash].target);
                         if (target != null)

@@ -30,39 +30,35 @@ function registerStudent(req,res){
 
 function login(req, res){
     
-    modelStudents.find({id_student : req.body.id_student},{__v : false}, (err, data) =>{
-        if (err) res.status(500).send({message : 'Hubo un error'});
-        if (data.length > 0){
-            
-            res.status(200).send({data : services.encodeToken(data[0])});
-        }
-        else
-            res.status(202).send({message : 'Matricula incorrecta'});
+    modelStudents.findOne({id_student : req.body.id_student},{__v : false}, (err, student) =>{
+        if (err) return res.status(500).send({message : 'Hubo un error'});
+        if (!student) return res.status(202).send({message : 'usuario o password incorrecta'});
+        if (student.nip == req.body.nip) return res.status(200).send({student : services.encodeToken(student)});
+        return res.status(202).send({message : 'usuario o password incorrecta'});
     });
 }
 
-//TMP solo envia los datos fijos para un usuario, tiene que recivir el id del estudiante
 
 
 function getLevels(req,res){
     let modelProblems = mongoose.model('Problems');
-    modelProblems.find({group : '59edab3d60a12ebd8d5d6ca3'},{_id : false,__v : false, group : false, }, (err, results)=>{
+    modelProblems.find({group : req.user.group},{_id : false,__v : false, group : false, }, (err, results)=>{
 
         if (err) res.status(500).send({message : 'Hubo un error'});
-        else res.status(200).send({data : results});
+        else res.status(200).send({data : results, level : req.user.level});
 
     });
 }
 
-//TMP tiene que recibir el ID del estudiante
+
 
 function getLevel(req,res){
 
-   modelStudents.findOne({id_student : 1040}, (err, result) =>{
+   modelStudents.findById(req.user._id, (err, result) =>{
         if (err) res.status(500).send({message : 'hubo un error'});
         else{
             let modelProblems = mongoose.model('Problems');
-            modelProblems.find({group : result.group, level : result.level}, (err, result)=>{
+            modelProblems.findOne({group : result.group, level : result.level}, (err, result)=>{
                 if (err) res.status(500).send({message : 'hubo un error'});
                 else res.status(200).send({data : result});
             });

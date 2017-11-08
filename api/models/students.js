@@ -17,7 +17,7 @@ const Students = new Schema({
             trim : true,
             required : true
             },
-    level : {type : Number, default : 0},
+    level : {type : Number, default : 1},
     group : {type : Schema.Types.ObjectId, required : true}
 
 });

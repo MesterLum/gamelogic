@@ -5,10 +5,6 @@ const mongoose = require('mongoose'),
 
 function registerProblem(req, res){
 
-    
-    
-    
-    
     const problem = new modelProblems({
         group : req.body.group,
         level : req.body.level,

@@ -6,14 +6,14 @@ const express = require('express'),
     controllerGroups = require('../controllers/groups'),
     controllerTeacher = require('../controllers/tecacher'),
     controllerProblem = require('../controllers/problems'),
-    middleware = require('../../middlewareApi');
+    ensureAuth = require('../../middleware');
 
 
 //Students
 app.post('/students/register', controllerStudents.registerStudent);
 app.post('/students/login', controllerStudents.login);
-app.post('/students/getlevels', controllerStudents.getLevels);
-app.post('/students/getlevel', controllerStudents.getLevel);
+app.post('/students/getlevels',ensureAuth,controllerStudents.getLevels);
+app.post('/students/getlevel',ensureAuth, controllerStudents.getLevel);
 //
 
 //Groups

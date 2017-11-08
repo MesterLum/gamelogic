@@ -1,0 +1,45 @@
+
+#description{
+    border: 3px dashed white;
+    
+}
+.button-in{
+    margin-top: 2px;
+    font-family: sans-serif;
+    font-size: 25px;
+    border-radius: 3px;
+}
+
+.game-logic{
+    background-color: white;
+}
+
+
+.operations{
+    padding: 7px;
+    border-radius: 3px;
+    margin-left: 6px;
+    margin-top: 3px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    background-color: #D2691E;
+}
+
+.operations:hover{
+    cursor: pointer;
+    background-color: #FF7F50;
+
+}
+
+.dragEnter{
+    border: 3px dashed green;
+    
+}
+#ejecucion{
+    height: 400px; 
+}
+
+.borderEjecucion{
+    border: 3px dashed white;
+}
